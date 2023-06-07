@@ -86,7 +86,7 @@ class MySite extends Site
 							var html = "<h2>Page text with hits</h2>";
 						
 							for (var i in data.data.hits) {
-								html += "<h3><a href=\"https://biodiversitylibrary.org/page/" + data.data.BHLPAGEID[i] + "\" target=\"_new\">" + i + "</a></h3>";
+								html += "<h3><a href=\"https://biodiversitylibrary.org/page/" + i + "\" target=\"_new\">" + i + "</a></h3>";
 								
 								if (data.data.hits[i].html) {
 									html += "<div class=\"text\">";
