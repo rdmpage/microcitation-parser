@@ -336,6 +336,12 @@ function parse($text, $debug = false)
 		// Acta Phytotax. Sin. ix. 297 (1964).
 		'/^' . '(?<journal>([A-Z][a-z]+\.?\s*)+)\s+(?<volume>([ivxlcIVXLC]+)\.)\s+(?<collation>(?<page>\d+))\s+(?<year>\([1|2][0-9]{3}\))' . '/u',
 		
+		// Bull. Herb. Boissier ser. 2, 8(5): 326 (1908).
+		'/^' . '(?<journal>([A-Z][a-z]+\.?\s*)+(,\s+Bot\.)?\s+ser\.\s+\d+),\s+(?<volume>\d+(\([^\)]+\))?):\s+(?<collation>(?<page>\d+))\s+(?<year>\([1|2][0-9]{3}\))' . '/u',
+		
+		// Bull. Soc. Roy. Bot. Belgique 35, pt. 1: 261 (1896).
+		'/^' . '(?<journal>([A-Z][a-z]+\.?\s*)+)\s+(?<volume>\d+,\s+pt.\s+\d+):\s+(?<collation>(?<page>\d+))\s+(?<year>\([1|2][0-9]{3}\))' . '/u',
+		
 		// Quart. J. Taiwan Mus. 34(3–4): 145 (1981)
 		'/^' . '(?<journal>([A-Z][a-z]*\.?\s*)+)\s+(?<volume>[ivxlcIVXLC0-9]+(\s*\([^\)]+\))?[\.|,|:]?)\s+(?<collation>(?<page>\d+))\s*(?<year>\([1|2][0-9]{3}\))' . '/u',
 
@@ -556,7 +562,7 @@ function parse($text, $debug = false)
 						case 'volume':
 							$value =  $match[0];
 							
-							if (preg_match('/(\s+No\.\s+(?<issue>\d+),?)/', $value, $m))
+							if (preg_match('/(\s+(No|pt)\.\s+(?<issue>\d+),?)/', $value, $m))
 							{
 								$data->issue = $m['issue'];
 								$value = str_replace($m[1], '', $value);
