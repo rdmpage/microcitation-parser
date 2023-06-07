@@ -48,7 +48,7 @@ function import_csv_to_sqlite(&$pdo, $csv_path, $options = array())
     }, $fields));    
     
     $insert_values_str = join(', ', array_fill(0, count($fields),  '?'));
-    $insert_sql = "INSERT INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
+    $insert_sql = "REPLACE INTO $table ($insert_fields_str) VALUES ($insert_values_str)";
     $insert_sth = $pdo->prepare($insert_sql);
 
     $inserted_rows = 0;
