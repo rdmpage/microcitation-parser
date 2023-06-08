@@ -71,7 +71,18 @@ class MySite extends Site
 						if (data.data.citation) {
 							
 							var html = "<h2>Formatted citation</h2>";
+							
+							
+							if (data.data.DOI) {
+								html += "<a href=\"https://doi.org/" + data.data.DOI + "\" target=\"_new\">";
+							}
+							
 							html += data.data.citation;
+							
+							if (data.data.DOI) {
+								html += "</a>";
+							}
+														
 							citation.innerHTML = html;
 							citation.style.display = "block";
 						}
