@@ -42,8 +42,8 @@ class MySite extends Site
 			var output = document.getElementById("output");
 			output.style.display = "none";
 			
-			//var pages = document.getElementById("pages");
-			//pages.style.display = "none";
+			var pid = document.getElementById("pid");
+			pid.style.display = "none";
 
 			var q = document.getElementById("q").value;
 			
@@ -67,23 +67,20 @@ class MySite extends Site
 						output.innerHTML = JSON.stringify(data, null, 2);							
 						output.style.display = "block";
 						
-						/*
-						if (data.data.BHLPAGEID) {
+						if (data.data.DOI) {
 							
-							var html = "<h2>Page images</h2>";
-						
-							for (var i in data.data.BHLPAGEID) {
-								html += "<figure class=\"pagethumbnail\">";
-								html += "<a href=\"https://biodiversitylibrary.org/page/" + data.data.BHLPAGEID[i] + "\" target=\"_new\">";
-								html += "<image src=\"https://biodiversitylibrary.org/pagethumb/" + data.data.BHLPAGEID[i] + "\">";
+							var html = "<h2>Persistent identifiers (PIDs)</h2>";
+							
+							
+							if (data.data.DOI) {
+								html += "<a href=\"https://doi.org/" + data.data.DOI + "\" target=\"_new\">";
+								html += data.data.DOI;
 								html += "</a>";
-								html += "<figcaption>" + data.data.BHLPAGEID[i] + "</figcaption>";
-								html += "</figure>";
 							}
-							pages.innerHTML = html;
-							pages.style.display = "block";
+														
+							pid.innerHTML = html;
+							pid.style.display = "block";
 						}
-						*/
 					});
 				}
 			);
@@ -134,6 +131,7 @@ class MySite extends Site
 		';	
 			
 			echo '<div id="output" style="display:none;" class="data"></div>';
+			echo '<div id="pid" style="display:none;" ></div>';
 		}
 		
 		$this->main_end();

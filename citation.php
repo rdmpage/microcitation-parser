@@ -112,7 +112,7 @@ class MySite extends Site
 			
 			$example = "Aust. J. Zool. 6: 280 [key], 281, figs 2G, 2H, 3D, pl. 1, fig. 2.";
 			
-			echo '<p>>This tool takes a "microcitation" such as "' . $example . '",
+			echo '<p>This tool takes a "microcitation" such as "' . $example . '",
 			attempts to convert it into structured data, looks for a DOI, and if found, the DOI
 			is used to add a formatted citation.
 			</p>';

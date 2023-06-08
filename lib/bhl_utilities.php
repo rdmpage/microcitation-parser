@@ -22,35 +22,38 @@ function find_bhl_page($obj, $debug = false)
 		)
 		{
 
-			$parameters = array(	
-				'volume' 	=> $obj->data->volume,
-				'spage'		=> $obj->data->page,
-				'pid'		=> 'title:' . $obj->data->BHLTITLEID[0],
-				'format' 	=> 'json'
-			);
+			foreach ($obj->data->BHLTITLEID as $TitleID)
+			{
+				$parameters = array(	
+					'volume' 	=> $obj->data->volume,
+					'spage'		=> $obj->data->page,
+					'pid'		=> 'title:' . $TitleID,
+					'format' 	=> 'json'
+				);
 	
-			$url = 'https://www.biodiversitylibrary.org/openurl?';
+				$url = 'https://www.biodiversitylibrary.org/openurl?';
 		
-			$url .= http_build_query($parameters);
+				$url .= http_build_query($parameters);
 			
-			if ($debug)
-			{
-				$obj->openurl = $url;
-			}
+				if ($debug)
+				{
+					$obj->openurl = $url;
+				}
 		
-			$json = get($url);
+				$json = get($url);
 		
-			$response = json_decode($json);
+				$response = json_decode($json);
 		
-			if ($response)
-			{
-				foreach ($response->citations as $citation)
-				{			
-					if (!isset($obj->data->BHLPAGEID))
-					{
-						$obj->data->BHLPAGEID = array();
+				if ($response)
+				{
+					foreach ($response->citations as $citation)
+					{			
+						if (!isset($obj->data->BHLPAGEID))
+						{
+							$obj->data->BHLPAGEID = array();
+						}
+						$obj->data->BHLPAGEID[] = str_replace('https://www.biodiversitylibrary.org/page/', '', $citation->Url);
 					}
-					$obj->data->BHLPAGEID[] = str_replace('https://www.biodiversitylibrary.org/page/', '', $citation->Url);
 				}
 			}
 		}

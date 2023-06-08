@@ -382,7 +382,7 @@
         11807
     ],
     "Genera Insect.": [
-        10464
+        45481
     ],
     "Berl. ent. Z.": [
         46204
@@ -829,10 +829,10 @@
         10104
     ],
     "Verh. Zool.-bot. Ges. Wien": [
-        44800
+        44800,13275
     ],
     "Verh. zool.-bot. Ges. Wien": [
-        44800
+        44800,13275
     ],
     "Zool. Meded. Leiden": [
         65001
@@ -1148,5 +1148,6 @@
     ],
     "Zoologica": [
         169517
-    ]
+    ],
+    "Mém. Mus. natn. Hist. nat. Paris (N.S.)(A)": [155000]
 }
