@@ -103,6 +103,12 @@ function find_pid($doc, $debug = false)
 					$sql .= ' AND (spage="' . $doc->data->page . '" OR "' . $doc->data->page . '" BETWEEN CAST(spage AS INT) AND CAST(epage AS INT))';
 				}
 				
+				// series if we have it
+				if (isset($doc->data->{'collection-title'}))
+				{
+					$sql .= ' AND series="' . $doc->data->{'collection-title'} . '"';
+				}
+				
 				$sql .= ' AND doi IS NOT NULL';
 				
 				if ($debug)

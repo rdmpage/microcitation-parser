@@ -45,6 +45,7 @@ function arabic($roman)
 //----------------------------------------------------------------------------------------
 // Output the regex matching using XML-style tags for debugging, and with an eye on
 // generating training data.
+// need to fix regexp to include series so we have a tag for that.
 function match_to_tags($text, $matches, $debug = false)
 {
 	$terminating_character = '•';
@@ -634,6 +635,14 @@ function parse($text, $debug = false)
 				case 'container-title':
 					$data->{$k} = preg_replace('/,$/', '', $data->{$k});
 					$data->{$k} = preg_replace('/No\.$/', '', $data->{$k});
+					
+					// to do: this is a hack, should catch these in regex
+					// series
+					if (preg_match('/(?<journal>.*)\s+\((?<series>\d+)\)$/', $data->{$k}, $m))
+					{
+						$data->{$k} = $m['journal'];
+						$data->{'collection-title'} = $m['series'];
+					}
 					break;
 					
 				case 'volume':

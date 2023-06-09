@@ -829,10 +829,12 @@
         10104
     ],
     "Verh. Zool.-bot. Ges. Wien": [
-        44800,13275
+        44800,
+        13275
     ],
     "Verh. zool.-bot. Ges. Wien": [
-        44800,13275
+        44800,
+        13275
     ],
     "Zool. Meded. Leiden": [
         65001
@@ -1149,5 +1151,13 @@
     "Zoologica": [
         169517
     ],
-    "Mém. Mus. natn. Hist. nat. Paris (N.S.)(A)": [155000]
+    "Mém. Mus. natn. Hist. nat. Paris (N.S.)(A)": [
+        155000
+    ],
+    "Lépidoptérologie": [
+        67705
+    ],
+    "Lépidoptérologie": [
+        67705
+    ]
 }
