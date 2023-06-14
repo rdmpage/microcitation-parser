@@ -200,7 +200,7 @@ class Site
 	
 	function footer_content()
 	{
-		//echo '[Footer goes here]';
+		echo 'A project by Rod Page. Feedback welcome as a <a href="https://github.com/rdmpage/microcitation-parser/issues" target="_new">GitHub issue</a>.';
 	}
 	
 	function main_start()
