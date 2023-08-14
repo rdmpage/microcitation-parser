@@ -65,6 +65,10 @@ class MySite extends Site
 			echo '<h2>Parse microcitation and text match to BHL</h2><p>Parses a microcitation, 
 			tries to locate the corresponding page(s) in BHL, then checks whether a give string
 			(such as a taxonomic name) appears on that page. <a href="bhltext.php">Try it!</a></p>';
+			
+			echo '<h2>BHL PageID and text match to BHL</h2><p>Takes a BHL PageID, then checks 
+			whether a give string (such as a taxonomic name) appears on that page. 
+			<a href="bhlpagetext.php">Try it!</a></p>';
 
 			echo '<h2>Parse microcitation and get PIDs (DOIs)</h2><p>Parses a microcitation, 
 			and adds persistent identifiers such as ISSNs and DOIs. <a href="pid.php">Try it!</a></p>';
