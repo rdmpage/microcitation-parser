@@ -1,6 +1,6 @@
 <?php
 
-// Microparser that matches to BHL and check the text
+// Take BHL PageID and check the text
 
 require_once (dirname(__FILE__) . '/lib/api_utilities.php');
 require_once (dirname(__FILE__) . '/lib/bhl_utilities.php');
@@ -54,11 +54,11 @@ class MySite extends Site
 			var pages = document.getElementById("pages");
 			pages.style.display = "none";			
 
-			var q = document.getElementById("q").value;
+			var pageid = document.getElementById("pageid").value;
 			var target = document.getElementById("target").value;
 			
 			var doc = {};
-			doc.q = q;
+			doc.pageid = pageid;
 			
 			if (target) {
 				doc.target = target;
@@ -121,31 +121,29 @@ class MySite extends Site
 		else
 		{
 			// main content	
-			echo '<h1>Parse microcitation and text match to BHL</h1>';
+			echo '<h1>BHL PageID and text match to BHL</h1>';
 			
-			$example = "J. Bombay nat. Hist. Soc. 22: 774.";
+			$example = "30155815";
 			$example_target = "Anarsia sagittaria";
 			
-			echo '<p>This tool takes a "microcitation" such as "' . $example . '",
-			attempts to convert it into structured data, and then match it to literature in the
-			<a href="https://www.biodiversitylibrary.org">Biodiversity Heritage Library</a> (BHL). 
-			Given a string to match (such as a taxonomic name) it will check whether that string
-			occurs on the BHL page.
+			echo '<p>This tool takes a <a href="https://www.biodiversitylibrary.org">Biodiversity Heritage Library</a> (BHL).
+			PageID such as "' . $example . ' and a string (such as a taxonomic name) and 
+			checks whether that string occurs on the BHL page.
 			</p>';
 
-			echo '<p>To use as an API simply GET the site URL with the citation as the parameter "q",
+			echo '<p>To use as an API simply GET the site URL with the BHL PageID (just the number) as the parameter "pageid",
 			and the string to match as "target", 
 			e.g.</p>
-			<p> <a href="' . $_SERVER['PHP_SELF'] . '?q=' . urlencode($example) . '&target=' . urlencode($example_target) . '">?q=' . $example . '&target=' . $example_target . '</a></p>
+			<p> <a href="' . $_SERVER['PHP_SELF'] . '?pageid=' . urlencode($example) . '&target=' . urlencode($example_target) . '">?q=' . $example . '&target=' . $example_target . '</a></p>
 			<p>
-			or POST a JSON document of the form <code>{ "q": "microcitation", "target": "string to match" }</code>. The API will return results as JSON.
+			or POST a JSON document of the form <code>{ "pageid": integer, "target": "string to match" }</code>. The API will return results as JSON.
 			</p>';
 			
 			
 		echo '
 		<div class="flexbox" >
 				<div class="stretch">
-					<input type="input" id="q" name="q" placeholder="Citation..." value="' . $example . '" autofocus/>
+					<input type="number" id="pageid" name="pageid" placeholder="PageID..." value="' . $example . '" autofocus/>
 					<p>Enter target text to match, such as taxon name.</p>
 					<input type="input" id="target" name="target" placeholder="Target..." value="' . $example_target . '" autofocus/>
 				</div>
@@ -181,87 +179,67 @@ else
 
 	if ($_SERVER['REQUEST_METHOD'] == 'GET')
 	{
-		$doc = http_get_endpoint(["q", "target"]);
+		$doc = http_get_endpoint(["pageid", "target"]);
 	}
 	else
 	{
-		$doc = http_post_endpoint(["q", "target"]);
+		$doc = http_post_endpoint(["pageid", "target"]);
 	}
 
 	if ($doc->status == 200)
 	{
-		$parse_result = parse($doc->q, false);
-
-		// we want to add results to existing doc
-		foreach ($parse_result as $k => $v)
+		if (isset($doc->pageid))
 		{
-			$doc->{$k} = $v;
-		}
+			$doc->data = new stdclass;
+			$doc->data->BHLPAGEID[] = (Integer)$doc->pageid;
+			unset($doc->pageid);
+			
 		
-		// BHL specific stuff
-		if (isset($doc->data))
-		{
-			if (isset($doc->data->{'container-title'}))
+			// text
+			if (isset($doc->data->BHLPAGEID))
 			{
-				$bhl_titles = match_bhl_title($doc->data->{'container-title'});
-				if (count($bhl_titles) > 0)
+				$doc->data->text = array();
+				$doc->data->hits = array();
+				
+				foreach ($doc->data->BHLPAGEID as $pageid)
 				{
-					$doc->data->BHLTITLEID = $bhl_titles;
-				}	
-		
-				if (isset($doc->data->BHLTITLEID))
-				{
-					// BHL page
-					$doc = find_bhl_page($doc);
-		
-					// text
-					if (isset($doc->data->BHLPAGEID))
+					$text = get_bhl_page_text($pageid);
+					if ($text != '')
 					{
-						$doc->data->text = array();
-						$doc->data->hits = array();
-						
-						foreach ($doc->data->BHLPAGEID as $pageid)
+						if (!isset($doc->data->text))
 						{
-							$text = get_bhl_page_text($pageid);
-							if ($text != '')
-							{
-								if (!isset($doc->data->text))
-								{
-									$doc->data->text = array();
-								}
-			
-								$text = mb_convert_encoding($text, 'UTF-8', mb_detect_encoding($text));
-			
-								$doc->data->text[$pageid] = $text;
-							}
-							
-							foreach ($doc->data->text as $id => $text)
-							{
-								if (1)
-								{
-									$hits = find_in_text(
-										$doc->target, 
-										$text, 
-										isset($doc->ignorecase) ? $doc->ignorecase : true,
-										isset($doc->maxerror) ? $doc->maxerror : 3	
-										);
-								}
-								else
-								{
-									$hits = find_in_text_simple(
-										$doc->target, 
-										$text, 
-										isset($doc->ignorecase) ? $doc->ignorecase : true,
-										isset($doc->maxerror) ? $doc->maxerror : 2	
-										);								
-								}
-								
-								if ($hits->total > 0)
-								{
-									$doc->data->hits[$id] = $hits;
-								}
-							
-							}
+							$doc->data->text = array();
+						}
+	
+						$text = mb_convert_encoding($text, 'UTF-8', mb_detect_encoding($text));
+	
+						$doc->data->text[$pageid] = $text;
+					}
+					
+					foreach ($doc->data->text as $id => $text)
+					{
+						if (1)
+						{
+							$hits = find_in_text(
+								$doc->target, 
+								$text, 
+								isset($doc->ignorecase) ? $doc->ignorecase : true,
+								isset($doc->maxerror) ? $doc->maxerror : 3	
+								);
+						}
+						else
+						{
+							$hits = find_in_text_simple(
+								$doc->target, 
+								$text, 
+								isset($doc->ignorecase) ? $doc->ignorecase : true,
+								isset($doc->maxerror) ? $doc->maxerror : 2	
+								);								
+						}
+						
+						if ($hits->total > 0)
+						{
+							$doc->data->hits[$id] = $hits;
 						}
 					}	
 				}		

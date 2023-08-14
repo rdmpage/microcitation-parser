@@ -199,10 +199,13 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 	
 	// number of matches
 	$result->total = 0;
+	
+	/*
 	foreach ($result->matches as $match)
 	{
 		$result->total++;
 	}
+	*/
 	
 	// get list of hits in the inout text (text selectors)
 	$result->selector = array();
@@ -210,6 +213,12 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 
 	// If we have matches we want to get start and end positions of those matches in
 	// the larger text so that we can display this (e.g., debugging)
+	
+	// Note also that apporx search algorithm can generate the "same hist" several times,
+	// e.g. if max_error > 0 then the same substring of text may have > 1 (WTF!?)
+	
+	$unique_ranges = array();
+	
 	foreach ($result->matches as $pos => $d)
 	{
 		$text1 = $query;	
@@ -223,9 +232,7 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 		
 		// get position of match in substring
 		$alignment = compare($text1, $text2);
-		
-		//echo $alignment->alignment;
-	
+			
 		// store this hit
 		$hit = new stdclass;
 		
@@ -253,7 +260,13 @@ function find_in_text($needle, $haystack, $case_insensitive = false, $max_error 
 		$post_length = min(mb_strlen($haystack, mb_detect_encoding($haystack)) - $end, FLANKING_LENGTH);		
 		$hit->suffix = mb_substr($haystack, $end, $post_length, mb_detect_encoding($haystack)); 
 		
-		$result->selector[] = $hit;
+		$range_key = join("-", $hit->range);
+		if (!in_array($range_key, $unique_ranges))
+		{		
+			$result->total++;
+			$unique_ranges[] = $range_key;
+			$result->selector[] = $hit;
+		}
 		
 		if ($output_html)
 		{
@@ -801,6 +814,18 @@ if (0)
 	$result = find_in_text_simple($needle, $haystack, true, 2);
 	
 	print_r($result);
+}
+
+if (0)
+{
+	$needle = "Polyporandra";
+	$haystack = "ICACINE.-E 125 \n\nraiQUELiA cELEBicA Bl. Rmhph. IV, p. 37 et Mas. hot. I , p. 42, fìg. Vili. \n\n— Miq. Fi. Ind. bat. 1 , pars I, p. 798. — Baili. I. c. \n\nAbita. — Nella Penisola N. E. di Selebes presso Tondano, alle sorgenti termali \n di Tartaran (non vidi). \n\nGen. XI L SARCOSTIGMA Wight et Aro. \n\nBenth. et Hook. Gen. plant. I , p. 354. — Baili, in DC. Prodi-. XV II , p. 15. \n\nsarcostigma HORSPiELDii R. Brown in Horsf. PI. Jav. rar. p. 241 , (ab. 47. \n\n— Miq. FI. Ind. bat. I, pars ì , p. 795. — Baili. I. e. \n\nAbita. — In Giava nella provincia di Blambangan e presso il villaggio Patijttan \n (non vidi). \n\nGen. XIII. POLYPOR ANDRA Dece. \n\nFlores dioici (vel interdum monoici?) cymosi. FI. 6; calyx cupularis vix 6-denti- \n culatus; petala 6 basi brevissime adnata, valvata, carnosa, apice in alabastro longe \n appendiculato-inflexa. Stamina 6, filamento nullo; antheraa crassa globosae sessiles \n extus undique alveolataa, alveolis, operculo membranaceo deciduo clausis, pollini- \n feris; ovarii rudimentum parvum conicum. FI. 9; calyx profunde 5-dentatus: sepala 6 \n alternantia pilosa basi coalita; ovarium pilosum globosum uniloculare; stigma latis- \n simum discoideum medio umbonatum ; ovula 2 ex apice loculi pendula. Fructus . . . . \n — Frutex scandens. \n\npolyporandra scandens sp. ii. — Frutex dioicus, alte scandens; ramuli \n subteretes pubescentes; folia opposita, petiolata, ovata, vel ovali-elliptica, integra, \n acutiuscula vel breviter acuminata, obtuse mucronulata, superne glabra, subtus pu- \n bescentia, penninervia, costulis utrinque 4-6. Paniculaa axillares; masculae foemineis \n multo longiores; sepala et petala adpresse et minutissime pilosa. (Tab. VII). \n\nDescrizione. — La pianta sembra dioica; quantunque fra gli esemplari femminei, \n ve ne siano alcuni con dei fiori maschi già trapassati, per cui potrebbe anche darsi che \n talvolta fosse monoica. E un frutice altamente scandente a fusto legnoso e cirrifero; \n i cirri però non sono molto frequenti; i ramoscelli sono quasi tereti, pubescenti; le \n foglie sono opposte, o quasi, e lasciano una larga cicatrice sui rami al punto della \n loro inserzione, sono con picciolo subterete , di sopra strettamente canaliculato , \n lungo 8-12 mill. ; il lembo è ovale-ellittico, lungo 9-14 cent., largo 45-70 mill., col \n margine intero, la base è talvolta un poco obliqua e piuttosto acuta come l'apice, il \n quale è anche non di rado un poco acuminato, e terminato da un cortissimo mucrone \n ottuso; la superfìcie superiore è glabra, la inferiore è pubescente, ambedue verdi \n pallide ed assai fortemente penninervie, con 4-6 nervi per lato; i nervi basilari sono \n meno forti ed uno di essi è assai sottile e quasi marginante. Infiorazioni ascellari, quelle \n\n";
+
+//	$result = find_in_text_simple($needle, $haystack, true, 3);
+	$result = find_in_text($needle, $haystack, true, 3);
+	
+	print_r($result);
+
 }
 
 

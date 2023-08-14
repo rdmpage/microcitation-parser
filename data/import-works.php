@@ -9,6 +9,8 @@ $basedir = dirname(__FILE__) . '/works';
 
 $files = scandir($basedir);
 
+$files=array('extra.tsv');
+
 foreach ($files as $filename)
 {
 	if (preg_match('/\.tsv$/', $filename))

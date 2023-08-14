@@ -358,6 +358,9 @@ function parse($text, $debug = false)
 		// Richardiana 6(3): 126 (123-129; fig. 3)
 		'/^' . '(?<journal>([A-Z][a-z]*\.?\s*)+)\s+(?<volume>\d+(\s*\([^\)]+\))?[\.|,|:]?)\s+(?<collation>(?<page>\d+)\s*(\(\d+-.*\)))' . '/u',
 		
+		// Trans. Acad. Sci. St. Louis xiv. 190.
+		'/^' . '(?<journal>([A-Z][a-z]+\.?\s*)+)\s+(?<volume>([ivxlcIVXLC]+)\.)\s+(?<collation>(?<page>\d+))\s+(?<year>\([1|2][0-9]{3}\))' . '/u',
+		
 		// articles
 		'/^' . $journal_simple . $volume_pattern . $collation_pattern . '/u',
 		'/^' . $journal_simple . '[,|:]' . $volume_pattern . $collation_pattern . '/u',
@@ -975,6 +978,22 @@ if (0)
 	foreach ($publications as $text)
 	{
 		$obj = parse($text);
+		
+		print_r($obj);
+	}
+}
+
+if (0)
+{
+  
+ $publications = array( 
+	//'Ann. Mag. nat. Hist. (8). 16: 178.',
+	'Cat. Eastern & Australian lepid. Heterocera colln Oxford Univ. Mus., 1: 264',
+  );  
+
+	foreach ($publications as $text)
+	{
+		$obj = parse($text, true);
 		
 		print_r($obj);
 	}

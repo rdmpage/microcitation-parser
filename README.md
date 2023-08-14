@@ -27,6 +27,12 @@ The `data/issn` directory has several TSV files listing journal names and ISSNs.
 
 The `data/works` directory has several TSV files listing basic metadata for “works” (i.e., articles). These can be used to create a local database to look up DOIs based on simple metadata.
 
+### SQL to generate TSV file
+
+```
+SELECT issn, series, volume, issue, spage, epage, year, doi FROM publications_doi WHERE issn IN ("0960-4286","1474-0036");
+```
+
 ### SQL to update records with missing data
 
 If we subsequently update the external source database(s), for example, by adding series numbers or pagination, we can generate SQL update statements to move this to the database used by this service.

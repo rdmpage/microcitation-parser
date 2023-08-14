@@ -7,6 +7,7 @@
 		<string>AA7E4A8C-4B4B-4C6D-BEE7-D6CCF15E2004</string>
 		<string>B449DA18-72C2-4A9C-9899-F197CA62DDC1</string>
 		<string>C4E244B0-F6CD-46E4-879F-DCBFB51AE09E</string>
+		<string>6ACCD453-EC34-4C82-B4C4-7F469CC6DFAF</string>
 		<string>19138908-3B8F-4D5C-847C-F691BD8BF648</string>
 		<string>8E8A6975-9D77-4120-9CB8-0AB2161056A8</string>
 		<string>8EAFFB35-0650-41FA-B6F3-D73EACBD1B35</string>
@@ -307,6 +308,54 @@
 			</dict>
 			<key>ItemName</key>
 			<string>pid.php</string>
+			<key>ItemType</key>
+			<string>FileReference</string>
+			<key>UserOverrideItemName</key>
+			<true/>
+		</dict>
+		<key>6ACCD453-EC34-4C82-B4C4-7F469CC6DFAF</key>
+		<dict>
+			<key>ItemData</key>
+			<dict>
+				<key>BookmarkData</key>
+				<data>
+				Ym9va/ACAAAAAAQQMAAAADTuxJyHpQn/LHWLda0GqgQ6
+				amgMaRAlEQvsLRW1VB1Z7AEAAAQAAAADAwAAAAgAKAUA
+				AAABAQAAVXNlcnMAAAAFAAAAAQEAAHJwYWdlAAAABQAA
+				AAEBAABTaXRlcwAAABQAAAABAQAAbWljcm9jaXRhdGlv
+				bi1wYXJzZXIPAAAAAQEAAGJobHBhZ2V0ZXh0LnBocAAU
+				AAAAAQYAABAAAAAgAAAAMAAAAEAAAABcAAAACAAAAAQD
+				AACEXAAAAAAAAAgAAAAEAwAAlsYDAAAAAAAIAAAABAMA
+				AEDoHgAAAAAACAAAAAQDAABNiP0EAAAAAAgAAAAEAwAA
+				DTJGBgAAAAAUAAAAAQYAAJAAAACgAAAAsAAAAMAAAADQ
+				AAAACAAAAAAEAABBxRhLUO3XBBgAAAABAgAAAQAAAAAA
+				AAAPAAAAAAAAAAAAAAAAAAAACAAAAAQDAAADAAAAAAAA
+				AAQAAAADAwAA9QEAAAgAAAABCQAAZmlsZTovLy8MAAAA
+				AQEAAE1hY2ludG9zaCBIRAgAAAAEAwAAAJCClucAAAAI
+				AAAAAAQAAEHFB3qgAAAAJAAAAAEBAABFRURCQzQ5NS1E
+				RjUyLTQ1NkEtQjQzMS1GQjYwN0JGMDRBRDEYAAAAAQIA
+				AIEAAAABAAAA7xMAAAEAAAAAAAAAAAAAAAEAAAABAQAA
+				LwAAAAAAAAABBQAAzAAAAP7///8BAAAAAAAAABAAAAAE
+				EAAAdAAAAAAAAAAFEAAA4AAAAAAAAAAQEAAADAEAAAAA
+				AABAEAAA/AAAAAAAAAACIAAA2AEAAAAAAAAFIAAASAEA
+				AAAAAAAQIAAAWAEAAAAAAAARIAAAjAEAAAAAAAASIAAA
+				bAEAAAAAAAATIAAAfAEAAAAAAAAgIAAAuAEAAAAAAAAw
+				IAAA5AEAAAAAAAABwAAALAEAAAAAAAARwAAAIAAAAAAA
+				AAASwAAAPAEAAAAAAAAQ0AAABAAAAAAAAAA=
+				</data>
+				<key>FileURL</key>
+				<string>file:///Users/rpage/Sites/microcitation-parser/bhlpagetext.php</string>
+				<key>HasSecurityScope</key>
+				<true/>
+				<key>RelativePath</key>
+				<string>./bhlpagetext.php</string>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+			<key>ItemName</key>
+			<string>bhlpagetext.php</string>
 			<key>ItemType</key>
 			<string>FileReference</string>
 			<key>UserOverrideItemName</key>
