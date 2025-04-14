@@ -175,59 +175,62 @@ function match_target(&$target, $string = '')
 	}
 	
 	// option to check whether match makes sense
-	if (count($target->BHLPAGEID) > 0)
+	if (trim($string) != '')
 	{
-		$target->text = array();
-		$target->hits = array();
-		
-		foreach ($target->BHLPAGEID as $pageid)
+		if (count($target->BHLPAGEID) > 0)
 		{
-			$text = '';
+			$target->text = array();
+			$target->hits = array();
 			
-			$page = get_page($pageid);
-			
-			if (isset($page->Result->OcrText))
+			foreach ($target->BHLPAGEID as $pageid)
 			{
-				$text = $page->Result->OcrText;
-			}
-			if ($text != '')
-			{
-				if (!isset($target->text))
+				$text = '';
+				
+				$page = get_page($pageid);
+				
+				if (isset($page->Result->OcrText))
 				{
-					$target->text = array();
+					$text = $page->Result->OcrText;
 				}
-
-				$text = mb_convert_encoding($text, 'UTF-8', mb_detect_encoding($text));
-
-				$target->text[$pageid] = $text;
-			}
-			
-			foreach ($target->text as $id => $text)
-			{	
-				if (1)
+				if ($text != '')
 				{
-					$hits = find_in_text(
-						$string, 
-						$text, 
-						isset($doc->ignorecase) ? $doc->ignorecase : true,
-						isset($doc->maxerror) ? $doc->maxerror : 2	
-						);
-				}
-				else
-				{
-					$hits = find_in_text_simple(
-						$string, 
-						$text, 
-						isset($doc->ignorecase) ? $doc->ignorecase : true,
-						isset($doc->maxerror) ? $doc->maxerror : 2	
-						);								
+					if (!isset($target->text))
+					{
+						$target->text = array();
+					}
+	
+					$text = mb_convert_encoding($text, 'UTF-8', mb_detect_encoding($text));
+	
+					$target->text[$pageid] = $text;
 				}
 				
-				//if ($hits->total > 0)
-				{
-					$target->hits[$id] = $hits;
+				foreach ($target->text as $id => $text)
+				{	
+					if (1)
+					{
+						$hits = find_in_text(
+							$string, 
+							$text, 
+							isset($doc->ignorecase) ? $doc->ignorecase : true,
+							isset($doc->maxerror) ? $doc->maxerror : 2	
+							);
+					}
+					else
+					{
+						$hits = find_in_text_simple(
+							$string, 
+							$text, 
+							isset($doc->ignorecase) ? $doc->ignorecase : true,
+							isset($doc->maxerror) ? $doc->maxerror : 2	
+							);								
+					}
+					
+					//if ($hits->total > 0)
+					{
+						$target->hits[$id] = $hits;
+					}
+				
 				}
-			
 			}
 		}
 	}
