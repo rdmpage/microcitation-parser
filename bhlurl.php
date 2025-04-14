@@ -496,7 +496,7 @@ class MySite extends Site
 			<i>Acharana</i> Moore, 1885 on the same page in the same book.</p>';
 			
 			
-			echo '<p>To use as an API simply GET the site URL with the citation as the parameter "url",
+			echo '<p>To use as an API simply GET the site URL with the BHL link as the parameter "url" (<a href="https://en.wikipedia.org/wiki/Percent-encoding">URL encoded</a>),
 			and the optional string to match as "target", 
 			e.g.</p>
 			<p> <a href="' . $_SERVER['PHP_SELF'] . '?url=' . urlencode($example) . '&target=' . urlencode($example_target) . '">?url=' . $example . '&target=' . $example_target . '</a></p>
