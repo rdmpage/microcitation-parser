@@ -69,6 +69,13 @@ class MySite extends Site
 			echo '<h2>BHL PageID and text match to BHL</h2><p>Takes a BHL PageID, then checks 
 			whether a give string (such as a taxonomic name) appears on that page. 
 			<a href="bhlpagetext.php">Try it!</a></p>';
+			
+			echo '<h2>New! Match BHL link to PageID</h2><p>Takes a BHL link and maps it to one or more BHL PageIDs, 
+			and can optionally check whether a give string
+			(such as a taxonomic name) appears on that page. Designed to convert <b>#page/306/mode/2up</b>
+			links to PageIDs.
+			<a href="bhlurl.php">Try it!</a></p>';
+			
 
 			echo '<h2>Parse microcitation and get PIDs (DOIs)</h2><p>Parses a microcitation, 
 			and adds persistent identifiers such as ISSNs and DOIs. <a href="pid.php">Try it!</a></p>';
