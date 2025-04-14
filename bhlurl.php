@@ -499,7 +499,7 @@ class MySite extends Site
 			echo '<p>To use as an API simply GET the site URL with the citation as the parameter "url",
 			and the optional string to match as "target", 
 			e.g.</p>
-			<p> <a href="' . $_SERVER['PHP_SELF'] . '?url=' . urlencode($example) . '&target=' . urlencode($example_target) . '">?q=' . $example . '&target=' . $example_target . '</a></p>
+			<p> <a href="' . $_SERVER['PHP_SELF'] . '?url=' . urlencode($example) . '&target=' . urlencode($example_target) . '">?url=' . $example . '&target=' . $example_target . '</a></p>
 			<p>
 			or POST a JSON document of the form <code>{ "url": "browser link to BHL page", "target": "string to match" }</code>. The API will return results as JSON.
 			</p>';
