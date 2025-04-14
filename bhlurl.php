@@ -210,7 +210,7 @@ function match_target(&$target, $string = '')
 						$string, 
 						$text, 
 						isset($doc->ignorecase) ? $doc->ignorecase : true,
-						isset($doc->maxerror) ? $doc->maxerror : 3	
+						isset($doc->maxerror) ? $doc->maxerror : 2	
 						);
 				}
 				else
