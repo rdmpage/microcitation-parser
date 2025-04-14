@@ -4,3 +4,5 @@ env.php
 data/titles-simple.tsv
 data/title.txt
 data/title.tsv
+
+/cache/*.json

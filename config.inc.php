@@ -22,6 +22,7 @@ if (file_exists(dirname(__FILE__) . '/env.php'))
 	$config['local'] = true;
 }
 
-$config['BHL_API_KEY'] 		= getenv('BHL_API_KEY');
+$config['BHL_API_KEY'] 		  = getenv('BHL_API_KEY');
+$config['bhl_download_cache'] = dirname(__FILE__) . '/cache';
 
 ?>
