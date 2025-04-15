@@ -71,7 +71,7 @@ class Site
 		margin: 0 auto;
 		width:80%;			
 		
-		/*background:#1a5d8d;*/
+		background:white;
 		padding:1em;
 		z-index:1000;
 	}';

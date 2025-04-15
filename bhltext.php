@@ -154,7 +154,7 @@ class MySite extends Site
 				</div>
 		</div>	
 		';	
-			echo '<div id="output" style="display:none;" class="data"></div>';
+			echo '<div id="output" class="data"></div>';
 			
 			echo '<div id="pages" style="display:none;" ></div>';
 		}

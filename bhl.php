@@ -75,7 +75,8 @@ class MySite extends Site
 		echo '<script>
 		function go() {
 			var output = document.getElementById("output");
-			output.style.display = "none";
+			//output.style.display = "none";
+			output.innerHTML = "<progress></progress>";
 			
 			var pages = document.getElementById("pages");
 			pages.style.display = "none";
@@ -176,7 +177,7 @@ class MySite extends Site
 			
 			
 			
-			echo '<div id="output" style="display:none;" class="data"></div>';
+			echo '<div id="output" class="data"></div>';
 
 			echo '<div id="pages" style="display:none;" class="images"></div>';
 		}

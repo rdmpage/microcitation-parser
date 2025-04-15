@@ -40,7 +40,8 @@ class MySite extends Site
 		echo '<script>
 		function go() {
 			var output = document.getElementById("output");
-			output.style.display = "none";
+			//output.style.display = "none";
+			output.innerHTML = "<progress></progress>";
 			
 			var pid = document.getElementById("pid");
 			pid.style.display = "none";
@@ -130,7 +131,7 @@ class MySite extends Site
 		</div>	
 		';	
 			
-			echo '<div id="output" style="display:none;" class="data"></div>';
+			echo '<div id="output" class="data"></div>';
 			echo '<div id="pid" style="display:none;" ></div>';
 		}
 		
