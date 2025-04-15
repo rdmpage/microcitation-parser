@@ -260,6 +260,16 @@ function parse_bhl_url($url)
 			$target->mode = $m['mode'];
 		}
 	}
+	
+	
+	// Link to BHL item with relative offset (seen in Wikispecies)
+	// http://www.biodiversitylibrary.org/item/31190#6
+	if (preg_match('/https?:\/\/(www\.)?biodiversitylibrary.org\/item\/(?<item>\d+)#(?<page>\d+)$/', $url, $m))
+	{		
+		$target->ItemID     = $m['item'];
+		$target->item_order = $m['page'] + 1;		
+		$target->mode       = 1;
+	}
 
 	// Link to BHL page with page offset
 	// https://www.biodiversitylibrary.org/page/498171#page/33/mode/1up
@@ -273,6 +283,15 @@ function parse_bhl_url($url)
 		{
 			$target->mode = $m['mode'];
 		}
+	}
+	
+	// Link to BHL page with relative offset (seen in Wikispecies)
+	// http://www.biodiversitylibrary.org/page/4775896#436
+	if (preg_match('/https?:\/\/(www\.)?biodiversitylibrary.org\/page\/(?<pageid>\d+)#(?<page>\d+)$/', $url, $m))
+	{		
+		$target->PageID     = $m['pageid'];
+		$target->item_order = $m['page'] + 1;		
+		$target->mode       = 1;
 	}
 	
 	// Link to BHL page using PageID, just extract the PageID
